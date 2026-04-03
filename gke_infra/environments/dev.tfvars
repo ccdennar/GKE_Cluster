@@ -8,7 +8,7 @@ subnet_name         = "dev-fresh-84-subnet-web-us-central1"
 pods_range_name     = "pods"
 services_range_name = "services"
 
-kubernetes_version = "1.29"
+kubernetes_version = "1.32"
 release_channel    = "REGULAR"
 
 enable_private_endpoint = false  # Public endpoint for dev
