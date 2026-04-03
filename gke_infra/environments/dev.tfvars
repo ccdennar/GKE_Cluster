@@ -34,6 +34,8 @@ node_pools = {
     machine_type = "e2-standard-2"
     min_count    = 1
     max_count    = 3
+    disk_size_gb = 200
+    disk_type    = "pd-standard"
     labels = {
       "node-type" = "system"
     }
