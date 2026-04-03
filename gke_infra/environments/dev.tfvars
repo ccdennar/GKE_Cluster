@@ -70,3 +70,6 @@ argocd_config = {
 workload_identity_service_accounts = {}
 
 enable_cost_allocation = false
+
+pods_range_name     = "gke-pods"
+services_range_name = "gke-services"
