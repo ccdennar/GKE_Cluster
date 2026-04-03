@@ -136,9 +136,6 @@ resource "google_container_cluster" "primary" {
 
   datapath_provider = "ADVANCED_DATAPATH"
 
-  network_policy {
-    enabled = true
-  }
 
   dynamic "binary_authorization" {
     for_each = var.binary_authorization_mode != "" ? [1] : []
