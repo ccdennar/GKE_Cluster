@@ -98,12 +98,12 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  # 🔥 FIX: Force bootstrap node pool to avoid SSD quota
-  node_config {
-    machine_type = "e2-medium"   # required to fully override defaults
-    disk_type    = "pd-standard"
-    disk_size_gb = 20
-  }
+  
+  # node_config {
+  #   machine_type = "e2-medium"   # required to fully override defaults
+  #   disk_type    = "pd-standard"
+  #   disk_size_gb = 20
+  # }
 
   dynamic "private_cluster_config" {
     for_each = var.enable_private_nodes ? [1] : []
