@@ -23,9 +23,9 @@ master_authorized_networks = [
 zones = ["us-central1-a"]
 
 maintenance_config = {
-  start_time = "2024-01-01T03:00:00Z"
-  end_time   = "2024-01-01T07:00:00Z"
-  recurrence = "FREQ=WEEKLY;BYDAY=SA,SU"
+  start_time = "2026-01-01T03:00:00Z"
+  end_time   = "2026-01-01T07:00:00Z"
+  recurrence = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU"
   exclusions = []
 }
 
@@ -71,3 +71,5 @@ enable_cost_allocation = false
 
 pods_range_name     = "gke-pods"
 services_range_name = "gke-services"
+
+resource_usage_dataset_id = null
