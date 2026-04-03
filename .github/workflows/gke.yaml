@@ -1,0 +1,59 @@
+name: Terraform GKE Deploy
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  TF_IN_AUTOMATION: true
+  ENVIRONMENT: dev
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./gke_infra
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.0
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.TF_SERVICE_ACCOUNT }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="bucket=my-terraform-state-bucket" \
+            -backend-config="prefix=gke-infra/${{ env.ENVIRONMENT }}" \
+            -reconfigure
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+            -var-file="environments/${{ env.ENVIRONMENT }}.tfvars" \
+            -out=tfplan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/master'
+        run: terraform apply -auto-approve tfplan

@@ -1,0 +1,72 @@
+project_id = "fresh-84"
+region     = "us-central1"
+cluster_name = "ai-ent"
+environment  = "dev"
+
+vpc_name            = "dev-fresh-84-vpc"
+subnet_name         = "dev-fresh-84-subnet-web-us-central1"
+pods_range_name     = "pods"
+services_range_name = "services"
+
+kubernetes_version = "1.29"
+release_channel    = "REGULAR"
+
+enable_private_endpoint = false  # Public endpoint for dev
+enable_private_nodes    = true
+master_ipv4_cidr_block  = "172.16.0.0/28"
+
+master_authorized_networks = [
+  {
+    cidr_block   = "0.0.0.0/0"  # Open for dev (restrict in real scenarios)
+    display_name = "open-access"
+  }
+]
+
+zones = ["us-central1-a"]
+
+maintenance_config = {
+  start_time = "2024-01-01T03:00:00Z"
+  end_time   = "2024-01-01T07:00:00Z"
+  recurrence = "FREQ=WEEKLY;BYDAY=SA,SU"
+  exclusions = []
+}
+
+node_pools = {
+  system = {
+    machine_type = "e2-standard-2"
+    min_count    = 1
+    max_count    = 3
+    labels = {
+      "node-type" = "system"
+    }
+    taints = []
+  }
+  general = {
+    machine_type = "e2-standard-4"
+    min_count    = 0
+    max_count    = 5
+    labels = {}
+    taints = []
+  }
+}
+
+cluster_autoscaling_limits = {
+  cpu = {
+    minimum = 2
+    maximum = 20
+  }
+  memory = {
+    minimum = 8
+    maximum = 80
+  }
+}
+
+argocd_config = {
+  namespace       = "argocd"
+  service_account = "argocd-application-controller"
+  roles           = ["roles/container.developer"]
+}
+
+workload_identity_service_accounts = {}
+
+enable_cost_allocation = false
