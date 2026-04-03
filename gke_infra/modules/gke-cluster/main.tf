@@ -80,7 +80,7 @@ resource "google_container_cluster" "primary" {
   project  = var.project_id
 
   deletion_protection = false
-  
+
   network         = local.network
   subnetwork      = local.subnetwork
   networking_mode = "VPC_NATIVE"
@@ -224,6 +224,7 @@ resource "google_container_cluster" "primary" {
     auto_provisioning_defaults {
       service_account = google_service_account.gke_nodes.email
       oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform"]
+      disk_type = "pd-standard"
 
       management {
         auto_repair  = true
