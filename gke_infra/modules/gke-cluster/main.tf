@@ -99,11 +99,11 @@ resource "google_container_cluster" "primary" {
   initial_node_count       = 1
 
   
-  # node_config {
-  #   machine_type = "e2-medium"   # required to fully override defaults
-  #   disk_type    = "pd-standard"
-  #   disk_size_gb = 20
-  # }
+  node_config {
+    machine_type = "e2-medium"   # required to fully override defaults
+    disk_type    = "pd-standard"
+    disk_size_gb = 20
+  }
 
   dynamic "private_cluster_config" {
     for_each = var.enable_private_nodes ? [1] : []
@@ -228,14 +228,15 @@ resource "google_container_cluster" "primary" {
     }
 
     auto_provisioning_defaults {
-      service_account = google_service_account.gke_nodes.email
-      oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform"]
-      disk_type       = "pd-standard"
+    service_account = google_service_account.gke_nodes.email
+    oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform"]
+    disk_type       = "pd-standard"
+    
 
-      management {
-        auto_repair  = true
-        auto_upgrade = true
-      }
+    management {
+      auto_repair  = true
+      auto_upgrade = true
+    }
 
       upgrade_settings {
         max_surge       = 1
