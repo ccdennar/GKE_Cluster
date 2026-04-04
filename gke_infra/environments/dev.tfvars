@@ -1,13 +1,11 @@
-project_id = "fresh-84"
-region     = "us-central1"
+project_id   = "fresh-84"
+region       = "us-central1"
+location     = "us-central1-a"
 cluster_name = "ai-ent"
 environment  = "dev"
 
 vpc_name            = "dev-fresh-84-vpc"
 subnet_name         = "dev-fresh-84-subnet-web-us-central1"
-
-region   = "us-central1"    # keep as region for subnet path
-location = "us-central1-a"  # zone for cluster location
 
 kubernetes_version = "1.32"
 release_channel    = "REGULAR"
