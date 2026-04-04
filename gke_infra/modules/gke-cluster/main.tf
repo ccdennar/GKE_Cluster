@@ -138,7 +138,7 @@ resource "google_container_cluster" "primary" {
   for_each = var.dns_access_scope != "" ? [1] : []
   content {
     cluster_dns        = "CLOUD_DNS"
-    cluster_dns_scope  = ""
+    cluster_dns_scope  = var.dns_access_scope
     cluster_dns_domain = "cluster.local"
   }
 }
