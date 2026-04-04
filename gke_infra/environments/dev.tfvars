@@ -7,12 +7,15 @@ environment  = "dev"
 vpc_name            = "dev-fresh-84-vpc"
 subnet_name         = "dev-fresh-84-subnet-web-us-central1"
 
+enable_private_nodes = false 
+
 kubernetes_version = "1.32"
 release_channel    = "REGULAR"
 
 enable_private_endpoint = false  # Public endpoint for dev
-enable_private_nodes    = true
+enable_private_nodes    = false
 master_ipv4_cidr_block  = "172.16.0.0/28"
+
 
 master_authorized_networks = [
   {
