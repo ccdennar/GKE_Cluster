@@ -246,17 +246,3 @@ variable "location" {
   default = null
 }
 
-variable "nat_config" {
-  description = "Cloud NAT configuration when NAT creation is enabled"
-  type = object({
-    min_ports_per_vm = number
-    log_filter       = string
-    nat_regions      = optional(list(string), null)  # null uses cluster region
-    
-  })
-  default = {
-    min_ports_per_vm = 128
-    log_filter       = "ALL"
-    nat_regions      = ["us-central1", "us-east1"]
-  }
-}
