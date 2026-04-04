@@ -79,3 +79,10 @@ pods_range_name     = "gke-pods"
 services_range_name = "gke-services"
 
 resource_usage_dataset_id = null
+
+nat_config = {
+  min_ports_per_vm = 128
+  log_filter       = "ALL"
+  nat_regions      = ["us-central1", "us-east1"]
+}
+enable_nat   = true
